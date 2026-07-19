@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Tattan</title>
+        <link>https://khamsin.jp/products/tattan/appcast.xml</link>
+        <description>Most recent changes to Tattan</description>
+        <language>en</language>
+        <item>
+            <title>Tattan __VERSION__</title>
+            <pubDate>__PUB_DATE__</pubDate>
+            <sparkle:version>__BUILD__</sparkle:version>
+            <sparkle:shortVersionString>__VERSION__</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[
+                <p>See <a href="https://github.com/khamsin-inc/tattan/releases/tag/v__VERSION__">the release notes on GitHub</a>.</p>
+            ]]></description>
+            <enclosure
+                url="https://github.com/khamsin-inc/tattan/releases/download/v__VERSION__/Tattan-__VERSION__.dmg"
+                sparkle:edSignature="__ED_SIGNATURE__"
+                length="__LENGTH__"
+                type="application/octet-stream"/>
+        </item>
+    </channel>
+</rss>

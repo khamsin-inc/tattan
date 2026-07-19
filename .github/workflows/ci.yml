@@ -1,0 +1,39 @@
+# 最小 CI（roadmap Phase 1: lint + build/test）。
+# 署名・公証・リリース自動化（I-3）は Phase 3 で release.yml として追加する。
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    name: SwiftLint
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install SwiftLint
+        run: brew install swiftlint
+      - name: Lint (strict)
+        run: swiftlint --strict
+
+  build-and-test:
+    name: Build & Test
+    runs-on: macos-26
+    steps:
+      - uses: actions/checkout@v5
+      - name: Select latest Xcode 26
+        run: |
+          XCODE=$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort -V | tail -1)
+          if [ -n "$XCODE" ]; then sudo xcode-select -s "$XCODE"; fi
+          xcodebuild -version
+      # CI には署名情報を置かないため、署名なしでビルド・テストする
+      - name: Build & Test (unsigned)
+        run: |
+          set -o pipefail
+          xcodebuild test \
+            -project Tattan.xcodeproj \
+            -scheme Tattan \
+            -destination 'platform=macOS,arch=arm64' \
+            CODE_SIGNING_ALLOWED=NO

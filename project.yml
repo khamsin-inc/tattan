@@ -1,0 +1,111 @@
+# XcodeGen project spec — Tattan.xcodeproj はこのファイルから生成する。
+# プロジェクト構成を変えたら `xcodegen generate` で再生成し、.xcodeproj ごとコミットする
+# （コントリビューターは xcodegen 無しでもビルドできるよう、生成物も追跡する方針）。
+name: Tattan
+options:
+  bundleIdPrefix: jp.khamsin
+  deploymentTarget:
+    macOS: "26.0"
+  createIntermediateGroups: true
+  # Icon Composer の .icon パッケージを 1 ファイルとして扱う（XcodeGen 既定だと
+  # ディレクトリ展開されて Xcode がアプリアイコンとして認識できない）
+  fileTypes:
+    icon:
+      file: true
+  # ローカライズ対象。Base = English、追加翻訳は ja から始める。
+  # 追加するときはこの配列と Localizable.xcstrings の両方に新言語コードを足す
+  developmentLanguage: en
+  knownRegions:
+    - en
+    - ja
+    - Base
+
+configFiles:
+  Debug: Configs/Debug.xcconfig
+  Release: Configs/Release.xcconfig
+
+# 依存は KeyboardShortcuts と Sparkle のみに抑える方針（§13.3）
+packages:
+  KeyboardShortcuts:
+    url: https://github.com/sindresorhus/KeyboardShortcuts
+    from: "2.0.0"
+  Sparkle:
+    url: https://github.com/sparkle-project/Sparkle
+    from: "2.6.0"
+
+settings:
+  base:
+    # Apple Silicon only（要件 B-2）
+    ARCHS: arm64
+    SWIFT_VERSION: "6.0"
+    # 警告 0 ポリシー（CLAUDE.md コード品質）を機械的に強制する
+    SWIFT_TREAT_WARNINGS_AS_ERRORS: YES
+    GCC_TREAT_WARNINGS_AS_ERRORS: YES
+    CODE_SIGN_STYLE: Automatic
+
+targets:
+  Tattan:
+    type: application
+    platform: macOS
+    sources:
+      - Tattan
+    dependencies:
+      - package: KeyboardShortcuts
+      - package: Sparkle
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: jp.khamsin.tattan
+        MARKETING_VERSION: "1.6.1"
+        CURRENT_PROJECT_VERSION: 16
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        CODE_SIGN_ENTITLEMENTS: Tattan/Resources/Tattan.entitlements
+        ENABLE_HARDENED_RUNTIME: YES
+        # Swift ソース内の String(localized:) を自動抽出して Localizable.xcstrings に追記する
+        SWIFT_EMIT_LOC_STRINGS: YES
+        LOCALIZATION_PREFERS_STRING_CATALOGS: YES
+    info:
+      path: Tattan/Resources/Info.plist
+      properties:
+        CFBundleDisplayName: Tattan
+        # MARKETING_VERSION / CURRENT_PROJECT_VERSION をビルド時に解決させる。
+        # 明示しないと xcodegen のデフォルト "1.0" が焼き込まれてしまう
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        # メニューバー常駐のみ・Dock 非表示（要件 F-1）
+        LSUIElement: true
+        # クリップボード/スニペット管理ユーティリティ（アーカイブ時の未設定警告対策）
+        LSApplicationCategoryType: public.app-category.utilities
+        NSHumanReadableCopyright: "© 2026 Kenta Mizuguchi — MIT License"
+        # macOS 26 Tahoe Pasteboard Privacy（O-4）の予防的宣言。
+        # Apple がデフォルト ON にした際にユーザーが System Settings で「Allow」を選ぶ
+        # ダイアログで表示される説明文
+        NSPasteboardAccessUsageDescription: >-
+          Tattan watches the clipboard to keep a history of what you copy and to
+          trigger snippets and templates. Nothing is sent off your Mac.
+        # Sparkle 自動アップデート（要件 G-4 / architecture §13.3）。
+        # SUFeedURL はアプリに焼き込まれるため恒久固定（2026-07-18 Ken 確定）。
+        # DMG の置き場所は appcast 内の記述だけなので後から自由に変えられる
+        SUFeedURL: https://khamsin.jp/products/tattan/appcast.xml
+        # Ed25519 公開鍵。秘密鍵は開発者のキーチェーンに保存されており、sign_update で署名する
+        SUPublicEDKey: L7S+M1o5A9JylzHQLJBFiA6ijO+W19A8axyj8Q2ogFo=
+        # 起動時に自動でアップデート確認する。ユーザーは General 設定でオフに切り替え可能
+        SUEnableAutomaticChecks: true
+        # システムプロファイル送信は無効（K-4「ユーザーデータは一切送らない」）
+        SUSendsSystemProfile: false
+        # サイレント自動更新は無効。ダイアログでユーザーに毎回同意を取る
+        SUAutomaticallyUpdate: false
+    scheme:
+      testTargets:
+        - TattanTests
+
+  TattanTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - TattanTests
+    dependencies:
+      - target: Tattan
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: jp.khamsin.tattan.tests
+        GENERATE_INFOPLIST_FILE: YES

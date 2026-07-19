@@ -1,0 +1,7 @@
+// 全構成共通のビルド設定。
+//
+// DEVELOPMENT_TEAM: CloudKit / Developer ID 署名に必要なチーム ID。
+// 4H6H6NFG9L = jp.khamsin.tattan と iCloud コンテナ（本番/dev）を所有する有料チーム。
+// Team ID は秘密情報ではない（配布アプリに必ず埋め込まれる）ため commit してよい。
+// CI は署名なし（CODE_SIGNING_ALLOWED=NO）でビルドするので無関係。
+DEVELOPMENT_TEAM = 4H6H6NFG9L

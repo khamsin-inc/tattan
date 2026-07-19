@@ -1,0 +1,6 @@
+#include "Shared.xcconfig"
+
+// 開発用 CloudKit コンテナ（architecture.md §4.1: 開発/本番をコンテナ ID レベルで分離）。
+// 開発中のスキーマ実験が本番コンテナのスキーマ履歴を汚さないための分離。
+ICLOUD_CONTAINER_ID = iCloud.jp.khamsin.tattan.dev
+APS_ENVIRONMENT = development

@@ -1,0 +1,18 @@
+# SwiftLint — 警告 0 ポリシー（CLAUDE.md）。CI では --strict で警告も fail 扱い。
+included:
+  - Tattan
+  - TattanTests
+
+opt_in_rules:
+  - empty_count
+
+# プロジェクト規約（CLAUDE.md）: TODO は日付 or Issue 番号付きで残してよい
+disabled_rules:
+  - todo
+
+line_length:
+  warning: 120
+  error: 200
+
+identifier_name:
+  min_length: 2

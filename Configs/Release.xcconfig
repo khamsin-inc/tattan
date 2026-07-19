@@ -1,0 +1,7 @@
+#include "Shared.xcconfig"
+
+// 本番 CloudKit コンテナ（architecture.md §4.1）。
+// スキーマの本番昇格は不可逆（フィールド削除・型変更不可）。β 直前の
+// 「CloudKit スキーマ最終レビュー」（roadmap Phase 3）を経てから deploy すること。
+ICLOUD_CONTAINER_ID = iCloud.jp.khamsin.tattan
+APS_ENVIRONMENT = production
