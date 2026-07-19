@@ -37,7 +37,7 @@ struct AboutSettingsView: View {
                 LabeledContent(String(localized: "Version"), value: version)
                 LabeledContent(String(localized: "License"), value: "MIT")
                 Link(String(localized: "Source Code"),
-                     destination: URL(string: "https://github.com/ken297/tattan")!)
+                     destination: URL(string: "https://github.com/khamsin-inc/tattan")!)
                 // Sparkle 手動チェック（要件 G-4）。Sparkle 側がバックオフ中は disabled
                 Button(String(localized: "Check for Updates…")) {
                     updater.checkForUpdates()
