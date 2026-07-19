@@ -6,9 +6,7 @@ Tattan は macOS ネイティブの無料クリップボード／スニペット
 
 [English README is here](README.md)
 
-<!-- TODO: hero screenshot
-![Tattan ポップアップ](docs/images/hero.png)
--->
+![TextEdit の上に開いた Tattan のクリップボード履歴ポップアップ](docs/images/hero.png)
 
 ## 機能
 
@@ -45,6 +43,8 @@ Homebrew Cask 対応も予定しています。
 | スニペットのグループを開く | ←→ で出入り |
 | 履歴をスニペット化 | 右クリック → 「スニペットとして保存…」 |
 | 設定 | メニューバーアイコン → 「設定…」 |
+
+![ポップアップのスニペットグループ表示](docs/images/snippets.png)
 
 ユーザーマニュアル: [khamsin.jp/products/tattan/manual](https://khamsin.jp/products/tattan/manual/)
 

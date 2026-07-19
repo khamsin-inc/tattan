@@ -6,9 +6,7 @@ Tattan is a free, native clipboard & snippet manager for macOS, named after the 
 
 [日本語の README はこちら](README.ja.md)
 
-<!-- TODO: hero screenshot
-![Tattan popup](docs/images/hero.png)
--->
+![The Tattan popup showing clipboard history over TextEdit](docs/images/hero.png)
 
 ## Features
 
@@ -45,6 +43,8 @@ A Homebrew Cask is planned.
 | Browse snippet groups | ←→ to enter/leave a group |
 | Save a history item as a snippet | Right-click → *Save as Snippet…* |
 | Settings | Menu bar icon → *Settings…* |
+
+![Snippet groups in the popup](docs/images/snippets.png)
 
 The user manual lives at [khamsin.jp/en/products/tattan/manual](https://khamsin.jp/en/products/tattan/manual/).
 
