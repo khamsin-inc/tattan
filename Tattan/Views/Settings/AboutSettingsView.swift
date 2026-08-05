@@ -38,6 +38,7 @@ struct AboutSettingsView: View {
                 LabeledContent(String(localized: "License"), value: "MIT")
                 Link(String(localized: "Source Code"),
                      destination: URL(string: "https://github.com/khamsin-inc/tattan")!)
+                    .pointerStyle(.link)
                 // Sparkle 手動チェック（要件 G-4）。Sparkle 側がバックオフ中は disabled
                 Button(String(localized: "Check for Updates…")) {
                     updater.checkForUpdates()
@@ -50,15 +51,17 @@ struct AboutSettingsView: View {
                     HStack(spacing: 8) {
                         Text("Ken")
                         // X 公式ロゴは SF Symbols に無いため 𝕏 文字で表現（Mac アプリの定番手法）
-                        Link(destination: URL(string: "https://x.com/miz2403")!) {
+                        Link(destination: URL(string: "https://x.com/ex_uraken3")!) {
                             Text("𝕏")
                                 .font(.system(size: 13, weight: .semibold))
                         }
+                        .pointerStyle(.link)
                         .help("X")
                     }
                 }
                 LabeledContent(String(localized: "Web")) {
                     Link("Khamsin", destination: URL(string: "https://khamsin.jp")!)
+                        .pointerStyle(.link)
                 }
             }
 
