@@ -34,8 +34,8 @@ require create-dmg "Install: brew install create-dmg"
 
 # 既存の成果物はゴミ箱へ退避（破壊的削除はしない方針）
 if [ -d "$BUILD_DIR" ]; then
-    mkdir -p "$HOME/claude-trash"
-    mv "$BUILD_DIR" "$HOME/claude-trash/tattan-release-$(date +%Y%m%d_%H%M%S)"
+    mkdir -p "$HOME/AI/trash"
+    mv "$BUILD_DIR" "$HOME/AI/trash/tattan-release-$(date +%Y%m%d_%H%M%S)"
 fi
 mkdir -p "$BUILD_DIR"
 
